@@ -12,23 +12,21 @@ export default class Application extends EventEmitter {
 
   constructor() {
     super();
-    
+    const lyrics = ["Ah", "ha", "ha", "ha", "stayin' alive", "stayin' alive"];
+    let count = 0;
 
-    const interval = setInterval(() => {
-      const lyrics = ["Ah", "ha", "ha", "ha", "stayin' alive", "stayin' alive"];
-      let count = 0;
-      for (const lyric of lyrics) {
-        if(count > lyric.length){
-          clearInterval(interval)
-        }
-        const message = document.createElement("div");
+    setInterval(() => {
+      const message = document.createElement("div");
       message.classList.add("message");
-      message.innerText = lyric;
-  
-      document.querySelector(".main").appendChild(message);
-      count++
+      if(count == lyrics.length){
+        count = 0;
       }
-    }, 600);
+      message.innerText = lyrics[count];
+      count++
+      document.querySelector(".main").appendChild(message);
+      
+      
+    }, 1000);
   
     
     this.emit(Application.events.READY);
